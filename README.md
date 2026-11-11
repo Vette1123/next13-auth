@@ -77,6 +77,8 @@ Because the check happens in middleware, the dashboard pages never render a
 loading state for the session, and there is no client-side redirect flicker.
 An unauthenticated request never reaches the page.
 
+This is the 2023 API. `authMiddleware` was replaced by `clerkMiddleware()` in `@clerk/nextjs` v5, Next.js 16 renamed `middleware.ts` to `proxy.ts`, and Clerk now recommends `await auth.protect()` in each page instead of path checks in middleware. The port is written up in [Clerk auth in Next.js 16: proxy.ts and auth.protect()](https://www.mohamedgado.com/writing/clerk-nextjs-middleware-auth-protect).
+
 ## Running locally
 
 ```bash
