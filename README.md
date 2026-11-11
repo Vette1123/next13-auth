@@ -22,7 +22,7 @@ pages, hosted sign-in and sign-up, and a user profile screen.
 
 | | |
 | --- | --- |
-| Framework | Next.js 13 (App Router) |
+| Framework | Next.js 13.4.7 (App Router), React 18.2 |
 | Auth | Clerk (`@clerk/nextjs`, `@clerk/themes`) |
 | Database | PlanetScale serverless driver |
 | UI | shadcn/ui on Radix primitives + Tailwind CSS |
@@ -82,7 +82,7 @@ An unauthenticated request never reaches the page.
 ```bash
 git clone https://github.com/Vette1123/next13-auth.git
 cd next13-auth
-npm install
+yarn install
 ```
 
 Create `.env.local`:
@@ -96,7 +96,7 @@ DATABASE_URL=mysql://...   # PlanetScale connection string
 ```
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 Keys come from the Clerk dashboard. The app will not boot without them:
