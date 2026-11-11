@@ -1,16 +1,16 @@
 # Next.js 13 Dashboard with Clerk Authentication
 
 A Next.js 13 App Router application with [Clerk](https://clerk.com) handling
-authentication in front of a full analytics dashboard — route groups, protected
+authentication in front of a full analytics dashboard: route groups, protected
 pages, hosted sign-in and sign-up, and a user profile screen.
 
 **[Live demo →](https://next13-auth-vette.vercel.app)**
 
 ## Features
 
-- **Middleware-level route protection.** Everything is private by default; the
-  public surface is declared, not the private one.
-- **Hosted sign-in and sign-up** mounted as Clerk components rather than
+- **Middleware-level route protection.** Everything is private by default, and
+  only the public routes are declared.
+- **Hosted sign-in and sign-up** mounted as Clerk components instead of
   hand-built forms, themed through `@clerk/themes`.
 - **Dashboard** with stat cards, a revenue bar chart, a recent-activity list,
   tabs, a team switcher and a command-palette search.
@@ -51,7 +51,7 @@ app/
 
 ## How the auth wiring works
 
-The entire protection story is the middleware:
+All route protection lives in the middleware:
 
 ```ts
 import { authMiddleware } from '@clerk/nextjs'
@@ -65,17 +65,17 @@ export const config = {
 }
 ```
 
-Two things worth noticing:
+Two details:
 
 - **Deny by default.** Every route the matcher covers requires a session unless
-  it is named in `publicRoutes`. The inverse — listing what to protect — is how
-  a new page ends up shipping unauthenticated because someone forgot to add it.
+  it is named in `publicRoutes`. Listing the protected routes instead lets
+  a new page ship unauthenticated if someone forgets to add it.
 - **The matcher deliberately skips static assets and `_next`.** Running auth
   middleware on every image and chunk is a measurable cost for no benefit.
 
 Because the check happens in middleware, the dashboard pages never render a
-loading state for the session, and there is no client-side redirect flicker —
-an unauthenticated request never reaches the page at all.
+loading state for the session, and there is no client-side redirect flicker.
+An unauthenticated request never reaches the page.
 
 ## Running locally
 
@@ -99,15 +99,15 @@ DATABASE_URL=mysql://...   # PlanetScale connection string
 npm run dev
 ```
 
-Keys come from the Clerk dashboard; the app will not boot without them, by
-design — `@t3-oss/env-nextjs` validates the environment at startup rather than
-letting a missing key surface as a runtime error later.
+Keys come from the Clerk dashboard. The app will not boot without them:
+`@t3-oss/env-nextjs` validates the environment at startup, so a missing key does
+not surface as a runtime error later.
 
 ## Notes
 
 The dashboard UI started from the shadcn/ui example and was kept as the
-protected surface — the point of the project was the auth and routing wiring
-around it, not the chart data, which is static.
+protected surface. The project is about the auth and routing wiring around it.
+The chart data is static.
 
 ---
 
